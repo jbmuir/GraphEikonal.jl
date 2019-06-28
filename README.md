@@ -1,1 +1,3 @@
-GraphEikonal
+GraphEikonal.jl
+
+Eikonal equations on graphs
