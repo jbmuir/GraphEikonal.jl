@@ -100,14 +100,12 @@ function graph_eikonal(g::AbstractGraph,
 
     nvg = nv(g)
     dists = fill(typemax(T), nvg)
-    visited = zeros(Bool, nvg)
     finalized = zeros(Bool, nvg)
     H = PriorityQueue{U,T}()
     # fill creates only one array.
 
     for src in srcs
         dists[src] = zero(T)
-        visited[src] = true
         H[src] = zero(T)
     end
 
@@ -118,12 +116,7 @@ function graph_eikonal(g::AbstractGraph,
         for v in outneighbors(g, u)
             if !finalized[v]
                 alt = eik_solve(v, g, dists, finalized, distmx, slowv, norm)
-
-                if !visited[v] 
-                    visited[v] = true
-                    dists[v] = alt
-                    H[v] = alt
-                elseif alt < dists[v]
+                if alt < dists[v]
                     dists[v] = alt
                     H[v] = alt
                 end
