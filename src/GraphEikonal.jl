@@ -102,7 +102,6 @@ function graph_eikonal(g::AbstractGraph,
     dists = fill(typemax(T), nvg)
     finalized = zeros(Bool, nvg)
     H = PriorityQueue{U,T}()
-    # fill creates only one array.
 
     for src in srcs
         dists[src] = zero(T)
